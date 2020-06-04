@@ -69,7 +69,7 @@ var getMaxElement = function (arr) {
 };
 
 // Вывод статистики
-window.renderStatistics = function (ctx, players, times) {
+window.renderStatistics = function (ctx, playersArray, times) {
 
   // Отрисовка тени облака
   renderCloudShadow(ctx, CLOUD_X, CLOUD_Y, 'rgba(0, 0, 0, 0.7)');
@@ -84,18 +84,18 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTimes = getMaxElement(times);
 
   // Отрисовка колонок и данных
-  for (var i = 0; i <= players.length - 1; i++) {
+  for (var playerIndex = 0; playerIndex <= playersArray.length - 1; playerIndex++) {
 
     // Отрисовка имен игроков
-    renderPlayerNames(ctx, players, i, 'black');
+    renderPlayerNames(ctx, playersArray, playerIndex, 'black');
 
     // Окрашивание колонок игроков
-    colorPlayerColumn(ctx, players, i);
+    colorPlayerColumn(ctx, playersArray, playerIndex);
 
     // Отрисовка колонок игроков
-    renderPlayerColumn(ctx, i, times, maxTimes);
+    renderPlayerColumn(ctx, playerIndex, times, maxTimes);
 
     // Отрисовка времени игроков
-    renderPlayerTime(ctx, i, times, maxTimes, 'green');
+    renderPlayerTime(ctx, playerIndex, times, maxTimes, 'green');
   }
 };
