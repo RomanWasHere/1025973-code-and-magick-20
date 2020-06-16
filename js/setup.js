@@ -80,7 +80,7 @@ var showSetupModal = function () {
 };
 showSetupModal();
 
-// Скрывыем окно с настройками при клике на 'X'
+// Скрывыем окно с настройками при клике на 'X'(закрыть)
 var hideSetupModal = function () {
   setupCloseButton.addEventListener('click', function () {
     setupModal.classList.toggle('hidden');
