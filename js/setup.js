@@ -1,9 +1,45 @@
 'use strict';
 
-var WIZARD_NAMES = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var WIZARD_EYES_COLORS = ['rgb(0,0,0)', 'rgb(255,0,0)', '(0,0,255)', 'rgb(255,255,0)', 'rgb(0,128,0)']; // Переконвертировал исходные значения в RGB чтобы генерировать
+var WIZARD_NAMES = [
+  'Иван',
+  'Хуан',
+  'Себастьян',
+  'Мария',
+  'Кристоф',
+  'Виктор',
+  'Юлия',
+  'Люпита',
+  'Вашингтон'
+];
+
+var WIZARD_SURNAMES = [
+  'да Марья',
+  'Верон',
+  'Мирабелла',
+  'Вальц',
+  'Онопко',
+  'Топольницкая',
+  'Нионго',
+  'Ирвинг'
+];
+
+var WIZARD_COAT_COLORS = [
+  'rgb(101, 137, 164)',
+  'rgb(241, 43, 107)',
+  'rgb(146, 100, 161)',
+  'rgb(56, 159, 117)',
+  'rgb(215, 210, 55)',
+  'rgb(0, 0, 0)'
+];
+
+// Переконвертировал исходные значения в RGB чтобы генерировать
+var WIZARD_EYES_COLORS = [
+  'rgb(0,0,0)',
+  'rgb(255,0,0)',
+  '(0,0,255)',
+  'rgb(255,255,0)',
+  'rgb(0,128,0)'
+];
 
 var setupModal = document.querySelector('.setup');
 var setupOpenButton = document.querySelector('.setup-open-icon');
@@ -30,32 +66,8 @@ var getWizadEyesColor = function () {
   return (WIZARD_EYES_COLORS[eyesRandom]);
 };
 
-// Волшебники
-var wizards = [
-  {
-    name: getWizardName(),
-    coatColor: getWizardCoatColor(),
-    eyesColor: getWizadEyesColor()
-  },
-  {
-    name: getWizardName(),
-    coatColor: getWizardCoatColor(),
-    eyesColor: getWizadEyesColor()
-  },
-  {
-    name: getWizardName(),
-    coatColor: getWizardCoatColor(),
-    eyesColor: getWizadEyesColor()
-  },
-  {
-    name: getWizardName(),
-    coatColor: getWizardCoatColor(),
-    eyesColor: getWizadEyesColor()
-  }
-];
-
 // Отрисовка волшебника
-var renderWizard = function (wizard) {
+var createWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -63,13 +75,26 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-// Добавляем волшебников в шаблон
-for (var i = 0; i < wizards.length; i++) {
-  var fragment = document.createDocumentFragment();
-  fragment.appendChild(renderWizard(wizards[i]));
-  similarListElement.appendChild(fragment);
-}
 
+// Добавляем волшебников на страницу
+var renderWizard = function (number) {
+
+  // Рендерим нужное количество волшебников
+  var wizards = [];
+  for (var i = 0; i < number; i++) {
+    wizards.push({
+      name: getWizardName(),
+      coatColor: getWizardCoatColor(),
+      eyesColor: getWizadEyesColor()
+    });
+
+    // Выводим волшебников на страницу
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(createWizard(wizards[i]));
+    similarListElement.appendChild(fragment);
+  }
+};
+renderWizard(4);
 
 // Показываем и скрываем окно с настройками при клике на аватарку
 var showSetupModal = function () {
